@@ -53,29 +53,12 @@ st.markdown("""
 # Load data
 @st.cache_data
 def load_data():
-    # Load the cleaned and processed data from the notebook
-    try:
-        # Try to load the enhanced classification results
-        df_features = pd.read_csv('renewable_energy_classification_results_enhanced.csv')
-        
-        # For the time series data, we'll need to reconstruct it from the features
-        # or load the original cleaned data if available
-        try:
-            df_clean = pd.read_csv('renewable_energy_cleaned.csv')
-        except:
-            # If the cleaned data is not available, create a simplified version
-            st.info("Data time series tidak ditemukan. Menampilkan data klasifikasi saja.")
-            df_clean = None
-            
-        return df_clean, df_features
-    except FileNotFoundError:
-        st.error("File data tidak ditemukan. Pastikan file 'renewable_energy_classification_results_enhanced.csv' tersedia.")
-        return None, None
+    df_features = pd.read_csv("renewable_energy_classification_results_enhanced.csv")
+    df_clean = pd.read_csv("renewable_energy_cleaned.csv")
+    return df_clean, df_features
 
 # Load data
 df_clean, df_features = load_data()
-if df_features is None:
-    st.stop()
 
 # Sidebar
 st.sidebar.title("🌍 Filter Data")
@@ -396,6 +379,7 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
 
 
 
