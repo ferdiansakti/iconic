@@ -50,18 +50,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Load data
 @st.cache_data
 def load_data():
-    # Load hasil klasifikasi
     df_features = pd.read_csv('renewable_energy_classification_results_enhanced.csv')
-
-    # Load data time series (jika memang ada)
     df_clean = pd.read_csv('renewable_energy_cleaned.csv')
-
     return df_clean, df_features
 
-# Load data
+# Pemanggilan
 df_clean, df_features = load_data()
 
 if df_features is None:
@@ -386,5 +381,6 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
 
 
