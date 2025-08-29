@@ -81,16 +81,19 @@ if df_features is None:
 # Sidebar
 st.sidebar.title("🌍 Filter Data")
 
-# Year filter (if we have time series data)
+# Year filter (opsional, hanya jika ada kolom Year)
 if df_clean is not None:
-    selected_years = st.sidebar.slider(
-        "Pilih Rentang Tahun",
-        min_value=int(df_clean['Year'].min()),
-        max_value=int(df_clean['Year'].max()),
-        value=(int(df_clean['Year'].min()), int(df_clean['Year'].max()))
-    )
+    if "Year" in df_clean.columns:
+        selected_years = st.sidebar.slider(
+            "Pilih Rentang Tahun",
+            min_value=int(df_clean['Year'].min()),
+            max_value=int(df_clean['Year'].max()),
+            value=(int(df_clean['Year'].min()), int(df_clean['Year'].max()))
+        )
+    else:
+        st.sidebar.info("Kolom 'Year' tidak tersedia pada dataset")
 else:
-    st.sidebar.info("Data time series tidak tersedia")
+    st.sidebar.info("Dataset belum dimuat")
 
 category_filter = st.sidebar.multiselect(
     "Filter Kategori",
@@ -397,4 +400,5 @@ st.markdown("""
     <p>Dashboard Analisis Klasifikasi Penggunaan Energi Terbarukan | ICONIC IT 2025</p>
     <p>Data sumber: renewable_energy_classification_results_enhanced.csv</p>
 </div>
+
 """, unsafe_allow_html=True)
