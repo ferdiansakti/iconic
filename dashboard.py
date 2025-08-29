@@ -82,18 +82,13 @@ if df_features is None:
 st.sidebar.title("🌍 Filter Data")
 
 # Year filter (opsional, hanya jika ada kolom Year)
-if df_clean is not None:
-    if "Year" in df_clean.columns:
-        selected_years = st.sidebar.slider(
-            "Pilih Rentang Tahun",
-            min_value=int(df_clean['Year'].min()),
-            max_value=int(df_clean['Year'].max()),
-            value=(int(df_clean['Year'].min()), int(df_clean['Year'].max()))
-        )
-    else:
-        st.sidebar.info("Kolom 'Year' tidak tersedia pada dataset")
-else:
-    st.sidebar.info("Dataset belum dimuat")
+if df_clean is not None and "Year" in df_clean.columns:
+    selected_years = st.sidebar.slider(
+        "Pilih Rentang Tahun",
+        min_value=int(df_clean['Year'].min()),
+        max_value=int(df_clean['Year'].max()),
+        value=(int(df_clean['Year'].min()), int(df_clean['Year'].max()))
+    )
 
 category_filter = st.sidebar.multiselect(
     "Filter Kategori",
@@ -402,3 +397,4 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
